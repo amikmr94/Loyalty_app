@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const { sequelize } = require("./models");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -37,3 +38,12 @@ app.use(function (err, req, res, next) {
 app.listen(3000, () => {
   console.log("Starting Server");
 });
+
+sequelize
+  .authenticate()
+  .then((res) => {
+    console.log("Successfully established connection to database");
+  })
+  .catch((err) => {
+    console.log("[ERROR]", err);
+  });
